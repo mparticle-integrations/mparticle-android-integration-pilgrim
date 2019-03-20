@@ -1,0 +1,36 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.mparticle:android-kit-plugin:+'
+    }
+}
+
+apply plugin: 'com.mparticle.kit'
+
+android {
+    defaultConfig {
+        minSdkVersion 15
+    }
+}
+
+subprojects {
+    repositories {
+        mavenLocal()
+    }
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url 'https://foursquare.jfrog.io/foursquare/libs-release/'
+    }
+}
+
+dependencies {
+    api 'com.foursquare:pilgrimsdk:2.1.2'
+}
