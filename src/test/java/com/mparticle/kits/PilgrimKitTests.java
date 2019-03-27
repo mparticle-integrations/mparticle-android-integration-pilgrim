@@ -4,13 +4,17 @@ package com.mparticle.kits;
 import android.content.Context;
 
 import com.foursquare.pilgrim.PilgrimSdk;
+import com.mparticle.MParticle;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.internal.util.reflection.Whitebox;
-import org.mockito.internal.verification.VerificationModeFactory;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,10 +23,17 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class PilgrimSdkKitTests {
+@RunWith(PowerMockRunner.class)
+public class PilgrimKitTests {
 
     private KitIntegration getKit() {
-        return new PilgrimSdkKit();
+        KitIntegration kit = new PilgrimKit();
+        try {
+            kit.setConfiguration(new KitConfiguration().parseConfiguration(new JSONObject().put("id", MParticle.ServiceProviders.PILGRIM)));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return kit;
     }
 
     @Test
@@ -62,11 +73,14 @@ public class PilgrimSdkKitTests {
     }
 
     @Test
-    public void testCorrectInitialization() {
+    @PrepareForTest({PilgrimSdk.class})
+    public void testCorrectInitialization() throws Exception {
+        PowerMockito.mockStatic(PilgrimSdk.class);
+        PowerMockito.doNothing().when(PilgrimSdk.class, "with", Mockito.any(PilgrimSdk.Builder.class));
         KitIntegration kit = getKit();
         Map<String, String> settings = new HashMap<>();
-        settings.put(PilgrimSdkKit.SDK_KEY, "MyKey");
-        settings.put(PilgrimSdkKit.SDK_SECRET, "MySuperSecretSecret");
+        settings.put(PilgrimKit.SDK_KEY, "MyKey");
+        settings.put(PilgrimKit.SDK_SECRET, "MySuperSecretSecret");
         try {
             List<ReportingMessage> messageList = kit.onKitCreate(settings, Mockito.mock(Context.class));
             // We did pass one
@@ -74,7 +88,7 @@ public class PilgrimSdkKitTests {
             boolean appStateMessageFound = false;
             for (int i = 0; i < messageList.size(); i++) {
                 ReportingMessage msg = messageList.get(i);
-                if (msg.getEventTypeString().equals(ReportingMessage.MessageType.APP_STATE_TRANSITION)) {
+                if (msg.toJson().getString("dt").equals(ReportingMessage.MessageType.APP_STATE_TRANSITION)) {
                     appStateMessageFound = true;
                 }
             }

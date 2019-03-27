@@ -23,12 +23,12 @@ import java.util.Map;
  * - ./build.gradle (as explained above)
  * - ./README.md
  */
-final public class PilgrimSdkKit extends KitIntegration implements KitIntegration.UserAttributeListener, KitIntegration.IdentityListener {
+final public class PilgrimKit extends KitIntegration implements KitIntegration.UserAttributeListener, KitIntegration.IdentityListener {
 
     /**
      * Name of the kit
      */
-    private static final String KIT_NAME = "PilgrimSdkKit";
+    private static final String KIT_NAME = "PilgrimKit";
 
     /**
      * Key used to get the Pilgrim Sdk api key from mParticle's settings response
