@@ -18,12 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
 
-        <receiver android:name="com.mparticle.ReferrerReceiver" android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER"/>
-            </intent-filter>
-        </receiver>
-
         <activity android:name=".activities.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
