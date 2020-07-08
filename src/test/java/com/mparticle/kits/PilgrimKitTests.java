@@ -4,7 +4,9 @@ package com.mparticle.kits;
 import android.content.Context;
 
 import com.foursquare.pilgrim.PilgrimSdk;
+import com.foursquare.pilgrim.Result;
 import com.mparticle.MParticle;
+import com.mparticle.internal.KitManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,7 +25,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-@RunWith(PowerMockRunner.class)
+//@RunWith(PowerMockRunner.class)
 public class PilgrimKitTests {
 
     private KitIntegration getKit() {
@@ -73,10 +75,12 @@ public class PilgrimKitTests {
     }
 
     @Test
-    @PrepareForTest({PilgrimSdk.class})
+//    @PrepareForTest({PilgrimSdk.class, Result.class})
     public void testCorrectInitialization() throws Exception {
-        PowerMockito.mockStatic(PilgrimSdk.class);
-        PowerMockito.doNothing().when(PilgrimSdk.class, "with", Mockito.any(PilgrimSdk.Builder.class));
+//        PowerMockito.mockStatic(Result.class);
+//        PowerMockito.doNothing().when(Result.class, "getCurrentLocation");
+//        PowerMockito.mockStatic(PilgrimSdk.class);
+//        PowerMockito.doNothing().when(PilgrimSdk.class, "with", Mockito.any(PilgrimSdk.Builder.class));
         KitIntegration kit = getKit();
         Map<String, String> settings = new HashMap<>();
         settings.put(PilgrimKit.SDK_KEY, "MyKey");
