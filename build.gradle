@@ -19,6 +19,9 @@ android {
     defaultConfig {
         minSdkVersion 15
     }
+    lintOptions {
+        disable 'SdkMethodCalledInClassDetector'
+    }
 }
 
 subprojects {
