@@ -20,7 +20,7 @@ android {
         minSdkVersion 15
     }
     lintOptions {
-        disable 'SdkMethodCalledInClassDetector'
+        disable 'LintError'
     }
 }
 
