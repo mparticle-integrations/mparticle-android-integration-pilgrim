@@ -120,7 +120,7 @@ final public class PilgrimKit extends KitIntegration implements KitIntegration.U
     }
 
     @Override
-    public void onIncrementUserAttribute(String s, int i, String s1, FilteredMParticleUser filteredMParticleUser) {
+    public void onIncrementUserAttribute(String s, Number i, String s1, FilteredMParticleUser filteredMParticleUser) {
         // Ignored,  Not supported atm
     }
 
