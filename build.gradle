@@ -57,5 +57,5 @@ repositories {
 
 dependencies {
     testImplementation files('libs/java-json.jar')
-    api 'com.foursquare:pilgrimsdk:3.3.0'
+    api 'com.foursquare:pilgrimsdk:3.4.0'
 }
